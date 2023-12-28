@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>poll</title>
+</head>
+<style>
+    *{
+        margin:0px;
+        border:0px;
+        padding:0px;
+        color:#fff;
+        font-family: sans-serif,"popins";
+    }
+    .red{
+        width:100VW;
+        height:50vh;
+        background:red;
+        display: grid;
+        place-items: center;
+    }
+    .blue{
+        width:100VW;
+        height:50vh;
+        background:blue;
+        display: grid;
+        place-items: center;
+    }
+    .enter{
+        position: absolute;
+        width:100%;
+        height:100%;
+        background:linear-gradient(blue,red);
+        display: grid;
+        place-items: center;
+    }
+    .inputs input{
+        width:25vw;
+        height:10vh;
+        color:#000;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+        outline: none;
+        text-align: center;
+        font-size:3vh;
+    }
+    .inputs button{
+        width:10vw;
+        height:10vh;
+        background:rgb(41, 41, 41);
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+        cursor:pointer;
+    }
+    .inputs{
+        display:flex;
+        flex-direction: row;
+    }
+
+    @media only screen and (max-width: 600px) {
+        /* Adjust the input width for smaller screens (e.g., phones) */
+        .inputs input {
+            width: 70vw;
+        }
+    }
+
+    .circle{
+        width:20vh;
+        height:20vh;
+        background:rgb(26, 25, 25);
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display:grid;
+        place-items: center;
+        visibility: hidden;
+        text-align: center;
+    }
+    .circle p{
+        max-width:17vh;
+        text-align: center;
+        margin:auto;
+    }
+</style>
+<body>
+    <div class="enter" id="enter">
+        <div class="inputs">
+            <input type="text" placeholder="enter question" id="Q">
+            <button id="go" onclick="go()">Go!</button>
+        </div>
+    </div>
+    <div class="red" id="red">
+        <h1 id="yes">YES</h1>
+    </div>
+    <div class="circle" id="circle">
+        <p>test question</p>
+    </div>
+    <div class="blue" id="blue">
+        <h1 id="no">NO</h1>
+    </div>
+</body>
+<script>
+    var enter = document.getElementById("enter");
+    var question;
+    var circle = document.getElementById("circle");
+    var red = document.getElementById("red");
+    var blue = document.getElementById("blue");
+    var R = 0;
+    var B = 0;
+
+    function go() {
+        enter.style.visibility = "hidden";
+        circle.style.visibility = "visible";
+        question = document.getElementById("Q").value;
+        circle.innerHTML = question;
+    }
+
+    red.addEventListener("click", redClick);
+    blue.addEventListener("click", blueClick);
+    circle.addEventListener("click", answer);
+
+    function redClick() {
+        R = R + 1;
+    }
+
+    function blueClick() {
+        B = B + 1;
+    }
+
+    function answer() {
+        alert("Red result: " + R + "\nBlue result: " + B);
+    }
+
+    // Function to center the circle on window resize
+    window.addEventListener("resize", function() {
+        if (circle.style.visibility === "visible") {
+            centerCircle();
+        }
+    });
+
+    // Function to center the circle
+    function centerCircle() {
+        circle.style.top = "50%";
+        circle.style.left = "50%";
+        circle.style.transform = "translate(-50%, -50%)";
+    }
+</script>
+</html>
